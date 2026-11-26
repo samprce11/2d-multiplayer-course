@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://b5s4yc1meb7p3"]
+
+[ext_resource type="FontFile" uid="uid://shkv2qf7ckdu" path="res://resources/fonts/KarenFat.ttf" id="1_d4nwg"]
+
+[resource]
+default_font = ExtResource("1_d4nwg")
+default_font_size = 16

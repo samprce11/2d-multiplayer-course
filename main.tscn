@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://btnxxhwfb26pw"]
+
+[ext_resource type="Script" uid="uid://cxigwxqeftije" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://b1mpigq13ymsi" path="res://assets/arena.png" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dvcebq4yhx0m7" path="res://managers/enemy_manager.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bflvg8c6w88mt" path="res://ui/game_ui.tscn" id="3_1bvp3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2iv3x"]
+size = Vector2(32, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(600, 32)
+
+[node name="Main" type="Node" unique_id=251269606]
+script = ExtResource("1_ig7tw")
+metadata/_edit_horizontal_guides_ = [185.0]
+metadata/_edit_vertical_guides_ = [325.0]
+
+[node name="EnemyManager" parent="." unique_id=2105071415 node_paths=PackedStringArray("enemy_spawn_root", "spawn_rect") instance=ExtResource("2_h2yge")]
+enemy_spawn_root = NodePath("../YSortRoot")
+spawn_rect = NodePath("../SpawnRect")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1550323248]
+_spawnable_scenes = PackedStringArray("uid://b1hqtymsx3g4g", "uid://0eln82ifcpt5")
+spawn_path = NodePath("../YSortRoot")
+
+[node name="GameUI" parent="." unique_id=2001139493 node_paths=PackedStringArray("enemy_manager") instance=ExtResource("3_1bvp3")]
+enemy_manager = NodePath("../EnemyManager")
+
+[node name="PlayerSpawnPosition" type="Marker2D" parent="." unique_id=816225552]
+position = Vector2(320, 185)
+metadata/_edit_lock_ = true
+
+[node name="Arena" type="Sprite2D" parent="." unique_id=1011680377]
+position = Vector2(320, 185)
+texture = ExtResource("2_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="SpawnRect" type="ReferenceRect" parent="." unique_id=153776779]
+custom_minimum_size = Vector2(414, 216)
+offset_left = 113.0
+offset_top = 73.0
+offset_right = 527.0
+offset_bottom = 289.0
+mouse_filter = 2
+border_width = 3.7
+metadata/_edit_lock_ = true
+
+[node name="Bounding" type="Node2D" parent="." unique_id=1118738988]
+visible = false
+
+[node name="LeftBorder" type="StaticBody2D" parent="Bounding" unique_id=280439085]
+position = Vector2(79, 185)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounding/LeftBorder" unique_id=1816937035]
+shape = SubResource("RectangleShape2D_2iv3x")
+metadata/_edit_lock_ = true
+
+[node name="RightBorder" type="StaticBody2D" parent="Bounding" unique_id=954020658]
+position = Vector2(561, 185)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounding/RightBorder" unique_id=717048843]
+shape = SubResource("RectangleShape2D_2iv3x")
+metadata/_edit_lock_ = true
+
+[node name="TopBorder" type="StaticBody2D" parent="Bounding" unique_id=185174242]
+position = Vector2(325, 39)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounding/TopBorder" unique_id=1612341996]
+shape = SubResource("RectangleShape2D_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="BottomBorder" type="StaticBody2D" parent="Bounding" unique_id=1782587864]
+position = Vector2(325, 322)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounding/BottomBorder" unique_id=674634911]
+shape = SubResource("RectangleShape2D_0xm2m")
+metadata/_edit_lock_ = true
+
+[node name="YSortRoot" type="Node2D" parent="." unique_id=1197392243]
+y_sort_enabled = true
