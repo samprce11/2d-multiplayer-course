@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://6lkfkgjrovnq" path="res://assets/ui/buttons.png" id="1_7ct1h"]
 [ext_resource type="FontFile" uid="uid://shkv2qf7ckdu" path="res://resources/fonts/KarenFat.ttf" id="1_d4nwg"]
+[ext_resource type="Texture2D" uid="uid://12wmeoaby6ib" path="res://assets/ui/progress_bar_outline.png" id="2_b751m"]
+[ext_resource type="Texture2D" uid="uid://dn0xr8wbjbamm" path="res://assets/ui/progress_bar_fill.png" id="3_owntx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b751m"]
 texture = ExtResource("1_7ct1h")
@@ -37,6 +39,21 @@ texture_margin_right = 4.0
 texture_margin_bottom = 5.0
 region_rect = Rect2(32, 2, 16, 16)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_omjkn"]
+texture = ExtResource("2_b751m")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8jxak"]
+texture = ExtResource("3_owntx")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+modulate_color = Color(0.83137256, 0.17254902, 0.30980393, 1)
+
 [resource]
 default_font = ExtResource("1_d4nwg")
 default_font_size = 16
@@ -50,3 +67,5 @@ Button/styles/focus = SubResource("StyleBoxEmpty_7ct1h")
 Button/styles/hover = SubResource("StyleBoxTexture_7ct1h")
 Button/styles/normal = SubResource("StyleBoxTexture_mlqe4")
 Button/styles/pressed = SubResource("StyleBoxTexture_886mr")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_omjkn")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_8jxak")
