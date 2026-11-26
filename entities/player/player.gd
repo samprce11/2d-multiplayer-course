@@ -66,6 +66,9 @@ func play_fire_effects():
 	get_parent().add_child(muzzle_flash)
 
 	animation_player.play("fire")
+	
+	if player_input_synchronizer_component.is_multiplayer_authority():
+		GameCamera.thug_shaker(1)
 
 
 func kill():

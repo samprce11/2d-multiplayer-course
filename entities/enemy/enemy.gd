@@ -7,6 +7,10 @@ extends CharacterBody2D
 @onready var charge_attack_timer: Timer = $ChargeAttackTimer
 @onready var hitbox_collision_shape: CollisionShape2D = $HitboxComponent/HitboxCollisionShape
 @onready var alert_sprite: Sprite2D = $AlertSprite
+@onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
+
+var hit_particles_scene: PackedScene = preload("uid://bwyu5o3vlis55")
+var ground_particles_scene: PackedScene = preload("uid://rdl8mfbsapy2")
 
 var target_position: Vector2
 var state_machine: CallableStateMachine = CallableStateMachine.new()
@@ -38,6 +42,7 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		health_component.died.connect(_on_died)
 		state_machine.set_initial_state(state_spawn)
+		hurtbox_component.hit.connect(_on_hit)
 	
 	
 func _process(_delta: float) -> void:
@@ -159,6 +164,29 @@ func handle_alert_tween(state: String):
 		alert_tween.tween_property(alert_sprite, "scale", Vector2.ZERO, .2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 		
 
+@rpc("authority", "call_local", "unreliable")		
+func spawn_hit_particles_scene():
+	var hit_particles: Node2D = hit_particles_scene.instantiate()
+	hit_particles.global_position = hurtbox_component.global_position
+	get_parent().add_child(hit_particles)
+
+@rpc("authority", "call_local", "unreliable")	
+func spawn_ground_particles_scene():
+	var death_particles: Node2D = ground_particles_scene.instantiate()
+	
+	var background_node: Node = Main.background_mask
+	if !is_instance_valid(background_node):
+		background_node = get_parent()
+		
+	background_node.add_child(death_particles)
+	death_particles.global_position = hurtbox_component.global_position
+		
+
 func _on_died():
+	spawn_ground_particles_scene.rpc()
 	GameEvents.emit_enemy_died()
 	queue_free()
+
+
+func _on_hit():
+	spawn_hit_particles_scene.rpc()
