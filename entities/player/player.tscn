@@ -84,9 +84,6 @@ collision_layer = 0
 motion_mode = 1
 script = ExtResource("1_symyc")
 
-[node name="HealthComponent" parent="." unique_id=1580507131 instance=ExtResource("2_fkugw")]
-max_health = 5
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=189214045]
 libraries/ = SubResource("AnimationLibrary_8fjmc")
 
@@ -95,6 +92,9 @@ aim_root = NodePath("../Visuals/WeaponRoot")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=953390569]
 replication_config = SubResource("SceneReplicationConfig_abrql")
+
+[node name="HealthComponent" parent="." unique_id=1580507131 instance=ExtResource("2_fkugw")]
+max_health = 3
 
 [node name="FireRateTimer" type="Timer" parent="." unique_id=333660756]
 wait_time = 0.25

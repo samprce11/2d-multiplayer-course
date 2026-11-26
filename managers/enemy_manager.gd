@@ -2,6 +2,7 @@ class_name EnemyManager
 extends Node
 
 signal round_changed(round_number: int)
+signal round_completed
 
 const ROUND_BASE_TIME: int = 10
 const ROUND_GROWTH: int = 5
@@ -77,7 +78,7 @@ func check_round_completed():
 		return
 		
 	if spawned_enemy_count == 0:
-		print("round complete")
+		round_completed.emit()
 		begin_round()
 	
 func get_random_spawn_position():
