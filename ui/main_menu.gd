@@ -1,38 +1,17 @@
 extends Control
 
-# radom ahhhhhh port
-const PORT: int = 3000
-
 var main_scene: PackedScene = preload("uid://btnxxhwfb26pw")
 
 @onready var single_player_button: Button = $VBoxContainer/SinglePlayerButton
 @onready var multiplayer_button: Button = $VBoxContainer/MultiplayerButton
 @onready var quit_button: Button = $VBoxContainer/QuitButton
 
+@onready var multiplayer_menu_scene: PackedScene = load("uid://bp75k6wshig42")
 
 func _ready() -> void:
 	single_player_button.pressed.connect(_on_single_player_button_pressed)
 	multiplayer_button.pressed.connect(_on_multiplayer_button)
 	quit_button.pressed.connect(_on_quit_button)
-	
-	multiplayer.connected_to_server.connect(_on_connected_to_server)
-	
-	
-func _on_host_pressed() -> void:
-	var server_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-	server_peer.create_server(PORT)
-	multiplayer.multiplayer_peer = server_peer
-	get_tree().change_scene_to_packed(main_scene)
-	
-	
-func _on_join_pressed() -> void:
-	var client_peer: ENetMultiplayerPeer  = ENetMultiplayerPeer.new()
-	client_peer.create_client("127.0.0.1", PORT)
-	multiplayer.multiplayer_peer = client_peer
-	
-	
-func  _on_connected_to_server() -> void:
-	get_tree().change_scene_to_packed(main_scene)
 
 
 func _on_single_player_button_pressed():
@@ -40,7 +19,7 @@ func _on_single_player_button_pressed():
 
 	
 func _on_multiplayer_button():
-	pass
+	get_tree().change_scene_to_packed(multiplayer_menu_scene)
 	
 	
 func _on_quit_button():
